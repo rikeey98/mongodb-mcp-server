@@ -26,13 +26,31 @@ uv sync
 
 ## 설정
 
-환경변수로 MongoDB 연결 문자열 설정:
+### 환경변수 설정
 
+1. `.env.example` 파일을 `.env`로 복사:
 ```bash
-export MONGO_URI="mongodb://localhost:27017"
+cp .env.example .env
+```
+
+2. `.env` 파일을 편집하여 MongoDB 연결 정보 입력:
+```bash
+# .env 파일
+MONGO_URI=mongodb://localhost:27017
 
 # 인증이 필요한 경우
-export MONGO_URI="mongodb://username:password@host:27017"
+# MONGO_URI=mongodb://username:password@host:27017
+
+# MongoDB Atlas 사용 시
+# MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/
+
+# 다른 IP 주소 사용 시
+# MONGO_URI=mongodb://192.168.1.100:27017
+```
+
+또는 환경변수로 직접 설정:
+```bash
+export MONGO_URI="mongodb://localhost:27017"
 ```
 
 ## 실행
@@ -68,6 +86,46 @@ uv run python server.py
 ```
 "category별로 문서 개수를 집계해줘"
 ```
+
+## 테스트
+
+### 개발 의존성 설치
+```bash
+uv sync --dev
+```
+
+### MongoDB 연결 테스트 실행
+
+**pytest로 실행:**
+```bash
+# 모든 테스트 실행
+uv run pytest
+
+# 상세 출력과 함께 실행
+uv run pytest -v
+
+# 특정 테스트 파일만 실행
+uv run pytest tests/test_connection.py
+
+# 테스트 출력 표시
+uv run pytest -s
+```
+
+**직접 실행:**
+```bash
+# Python으로 직접 실행 (pytest 없이)
+uv run python tests/test_connection.py
+```
+
+### 테스트 내용
+
+`tests/test_connection.py`는 다음을 확인합니다:
+- ✓ 환경변수에서 MONGO_URI 로드
+- ✓ MongoDB 클라이언트 생성
+- ✓ MongoDB 서버 연결
+- ✓ 데이터베이스 목록 조회
+- ✓ Ping 명령 응답
+- ✓ Context manager를 사용한 연결
 
 ## 라이선스
 
