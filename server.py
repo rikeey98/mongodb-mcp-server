@@ -1,8 +1,12 @@
 from fastmcp import FastMCP
 from pymongo import MongoClient
 from typing import Any
+from dotenv import load_dotenv
 import json
 import os
+
+# .env 파일 로드
+load_dotenv()
 
 # MongoDB 연결 설정
 MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
