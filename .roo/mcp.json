@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "mongodb": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/user/mongodb-mcp-server",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "env": {
+        "MONGO_URI": "mongodb://localhost:27017"
+      }
+    }
+  }
+}

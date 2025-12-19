@@ -55,17 +55,58 @@ export MONGO_URI="mongodb://localhost:27017"
 
 ## 실행
 
-### 개발/테스트
+### 1. 개발/테스트 (fastmcp dev 모드)
 ```bash
 uv run fastmcp dev server.py
 ```
+이 명령으로 MCP Inspector가 열리며 브라우저에서 테스트할 수 있습니다.
 
-### Claude Desktop 연결
+### 2. Roo Code (VS Code)에서 사용
+
+이 프로젝트에는 `.roo/mcp.json` 파일이 이미 구성되어 있습니다.
+
+**사용 방법:**
+1. VS Code에서 Roo Code extension 설치
+2. 이 프로젝트 폴더를 VS Code로 열기
+3. `.env` 파일을 생성하고 MongoDB URI 설정:
+   ```bash
+   cp .env.example .env
+   # .env 파일 편집
+   ```
+4. Roo Code를 시작하면 자동으로 MongoDB MCP 서버가 로드됩니다
+5. Roo Code에서 "MongoDB에 연결된 데이터베이스 목록 보여줘" 같은 명령 사용 가능
+
+**`.roo/mcp.json` 설정 예시:**
+```json
+{
+  "mcpServers": {
+    "mongodb": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/user/mongodb-mcp-server",
+        "run",
+        "python",
+        "server.py"
+      ],
+      "env": {
+        "MONGO_URI": "mongodb://localhost:27017"
+      }
+    }
+  }
+}
+```
+
+**주의사항:**
+- `--directory` 경로를 프로젝트의 실제 경로로 수정하세요
+- 또는 `.env` 파일을 사용하면 `env` 섹션을 제거해도 됩니다
+
+### 3. Claude Desktop 연결
 ```bash
 uv run fastmcp install server.py
 ```
 
-### 직접 실행
+### 4. 직접 실행
 ```bash
 uv run python server.py
 ```
